@@ -16,7 +16,7 @@ function modelLoader(config) {
 
     const db = {
         models: {},
-        Mongoose: mongoose
+        mongoose
     };
 
     // model loader function

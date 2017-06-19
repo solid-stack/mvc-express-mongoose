@@ -68,9 +68,9 @@ function TestModel(db, services, options) {
             }
         };
 
-    return db.Mongoose.connection.model(
+    return db.mongoose.connection.model(
         modelName,
-        new db.Mongoose.Schema(schema, {collection: collectionName})
+        new db.mongoose.Schema(schema, {collection: collectionName})
     );
 }
 ```
