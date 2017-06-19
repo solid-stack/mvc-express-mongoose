@@ -2,8 +2,6 @@
 
 const path = require('path');
 const mongoose = require('mongoose');
-const path = require('path');
-
 const env = process.env.NODE_ENV || 'development';
 
 module.exports = modelLoader;
@@ -16,8 +14,8 @@ function modelLoader(config) {
     mongoose.connect(endpoint);
 
     const db = {
-        models: {},
-        mongoose
+        Mongoose: mongoose,
+        models: {}
     };
 
     // model loader function
@@ -27,8 +25,8 @@ function modelLoader(config) {
             let modelName = Model.name;
 
             if (!modelName) {
-                let pathFinalSegment = thePath.split('/').pop(),
-                    modelName = path.basename(pathFinalSegment, '.model.js');
+                let pathFinalSegment = thePath.split('/').pop();
+                modelName = path.basename(pathFinalSegment, '.model.js');
             }
 
             db.models[modelName] = Model;
