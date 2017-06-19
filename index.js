@@ -2,6 +2,8 @@
 
 const path = require('path');
 const mongoose = require('mongoose');
+const path = require('path');
+
 const env = process.env.NODE_ENV || 'development';
 
 module.exports = modelLoader;
@@ -15,10 +17,10 @@ function modelLoader(config) {
 
     const db = {
         models: {},
-        Mongoose: mongoose
+        mongoose
     };
 
-    // model loader func
+    // model loader function
     return (modelPaths, services, options) => {
         modelPaths.forEach(thePath => {
             const Model = require(thePath)(db, services, options);

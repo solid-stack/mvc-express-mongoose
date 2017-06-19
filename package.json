@@ -1,7 +1,7 @@
 {
   "name": "mvc-express-mongoose",
   "version": "0.0.2",
-  "description": "",
+  "description": "Mongoose model loader for mvc-express",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/solid-stack/mvc-express-mongoose.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["node", "mvc", "express", "mvc-express"],
+  "author": "SOLID Digital",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/solid-stack/mvc-express-mongoose/issues"
