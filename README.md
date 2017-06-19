@@ -24,7 +24,9 @@ The config object should include the following values for the current environmen
 ```
 let config = {
     development: {
-        endpoint: String, // 'mongodb://username:password@host:port/database',
+        db: {
+            endpoint: String, // 'mongodb://username:password@host:port/database',
+        },
         use_env_variable: Boolean, // defaults to false. If true, `process.env` is used to extract the configs.
         env_variable: String // the property from `process.env` that will be used to extract the db connection 
     }
