@@ -19,7 +19,8 @@ mvc.boot({
 
 ## Config
 
-The config object should include the following values for the current environment.
+The config object should include the following values for the current environment. Below is an example for 
+the `development` environment:
 
 ```
 let config = {
@@ -31,7 +32,8 @@ let config = {
 }
 ```
 
-It's important to know that the `development` property correlates to `process.env.NODE_ENV`. This defaults to 'development'.
+The current environment is taken form `process.env.NODE_ENV`. If this is absent, the environment defaults
+to `development`.
 
 ## Creating models
 

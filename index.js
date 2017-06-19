@@ -1,6 +1,8 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const path = require('path');
+
 const env = process.env.NODE_ENV || 'development';
 
 module.exports = modelLoader;
@@ -17,10 +19,10 @@ function modelLoader(config) {
         Mongoose: mongoose
     };
 
-    // model loader func
+    // model loader function
     return (modelPaths, services, options) => {
         modelPaths.forEach(thePath => {
-            let modelName = thePath.split('/').pop().split('.').shift();
+            let modelName = path.basename(thePath, '.model.js');
             const Model = require(thePath)(db.mongoose.connection, services, options);
             db.models[modelName] = Model;
         });
