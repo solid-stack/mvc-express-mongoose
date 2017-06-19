@@ -14,19 +14,19 @@ function modelLoader(config) {
     mongoose.connect(endpoint);
 
     const db = {
-        Mongoose: mongoose,
-        models: {}
+        models: {},
+        mongoose
     };
 
     // model loader function
     return (modelPaths, services, options) => {
         modelPaths.forEach(thePath => {
             const Model = require(thePath)(db, services, options);
-            let modelName = Model.name;
+            let modelName = Model.modelName;
 
             if (!modelName) {
-                let pathFinalSegment = thePath.split('/').pop();
-                modelName = path.basename(pathFinalSegment, '.model.js');
+                modelName = path.basename(thePath, '.model.js');
+                console.log('Model.modelName not found, using', modelName);
             }
 
             db.models[modelName] = Model;

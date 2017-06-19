@@ -10,7 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/solid-stack/mvc-express-mongoose.git"
   },
-  "keywords": ["node", "mvc", "express", "mvc-express"],
+  "keywords": [
+    "node",
+    "mvc",
+    "express",
+    "mvc-express"
+  ],
   "author": "SOLID Digital",
   "license": "ISC",
   "bugs": {
