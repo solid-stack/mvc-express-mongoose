@@ -17,6 +17,8 @@ mvc.boot({
 })
 ```
 
+When the app exits, it's good practice to close all open mongoose connection using [`mongoose.disconnect`](http://mongoosejs.com/docs/api.html#index_Mongoose-disconnect).
+
 ## Config
 
 The config object should include the following values for the current environment. Below is an example for 

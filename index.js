@@ -11,7 +11,9 @@ function modelLoader(config) {
     // make db connection
     config = config[env];
     const endpoint = config.use_env_variable ? process.env[config.env_variable] : config.db.endpoint;
-    mongoose.connect(endpoint);
+
+    // Don't take up the default mongoose connection
+    mongoose.createConnection(endpoint);
 
     const db = {
         models: {},

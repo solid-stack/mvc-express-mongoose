@@ -1,6 +1,6 @@
 {
   "name": "mvc-express-mongoose",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Mongoose model loader for mvc-express",
   "main": "index.js",
   "scripts": {
