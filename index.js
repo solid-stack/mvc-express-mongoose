@@ -1,3 +1,4 @@
+
 'use strict';
 
 const path = require('path');
@@ -10,14 +11,20 @@ function modelLoader(config) {
 
     // make db connection
     config = config[env];
-    const endpoint = config.use_env_variable ? process.env[config.env_variable] : config.db.endpoint;
+    const endpoint = config.env_variable 
+        ? process.env[config.env_variable] 
+        : config.db.endpoint;
+
+    // set promise lib
+    mongoose.Promise = global.Promise;
 
     // Don't take up the default mongoose connection
-    mongoose.createConnection(endpoint);
+    let conn = mongoose.createConnection(endpoint);
 
     const db = {
-        models: {},
-        mongoose
+        Mongoose: mongoose,
+        connection: conn,
+        models: {}
     };
 
     // model loader function

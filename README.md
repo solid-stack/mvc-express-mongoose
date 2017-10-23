@@ -30,8 +30,7 @@ let config = {
         db: {
             endpoint: String, // 'mongodb://username:password@host:port/database',
         },
-        use_env_variable: Boolean, // defaults to false. If true, `process.env` is used to extract the configs.
-        env_variable: String // the property from `process.env` that will be used to extract the db connection 
+        env_variable: String, // the property from `process.env` that will be used to extract the db connection defaults to empty string
     }
 }
 ```
@@ -42,9 +41,9 @@ to `development`.
 ## Creating models
 
 Each model file will receive as arguments: `db`, `services`, and `options`. The `db` param will include the 
-properties `mongoose`, and `models`, which is a reference to all other models in the project. 
+properties `connection`, `Mongoose`, and `models`, which is a reference to all other models in the project. 
 
-You can access the connection via `db.mongoose.connection`
+You can access the connection via `db.connection`
 
 Here is a sample model:
 
@@ -54,6 +53,14 @@ Here is a sample model:
 module.exports = TestModel;
 
 function TestModel(db, services, options) {
+    // db looks like this:
+    // {
+    //   connection: Object, // result of Mongoose.createConnection()
+    //   Mongoose: Object, // result of require('mongoose')
+    //   models: {
+    //       ModelName: Object // result of db.connection.model('ModelName', <schema object>),
+    //   }
+
     let modelName = 'TestModel',
         collectionName = 'testCollection',
         schema = {
@@ -63,8 +70,8 @@ function TestModel(db, services, options) {
             },
             slug: {type: String},
             meta: {
-                type: {type: db.mongoose.Schema.ObjectId, ref: 'content'},
-                node: {type: db.mongoose.Schema.ObjectId, ref: 'nodes'},
+                type: {type: db.Mongoose.Schema.ObjectId, ref: 'content'},
+                node: {type: db.Mongoose.Schema.ObjectId, ref: 'nodes'},
                 lastmodified: {type: Date, default: Date.now},
                 created: {type: Date, default: Date.now},
                 typelabel: {type: String},
@@ -72,9 +79,9 @@ function TestModel(db, services, options) {
             }
         };
 
-    return db.mongoose.connection.model(
+    return db.connection.model(
         modelName, // db[modelName] will be available for use
-        new db.mongoose.Schema(schema, {collection: collectionName})
+        new db.Mongoose.Schema(schema, {collection: collectionName})
     );
 }
 ```
