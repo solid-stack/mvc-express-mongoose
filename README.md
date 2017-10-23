@@ -17,6 +17,8 @@ mvc.boot({
 })
 ```
 
+When the app exits, it's good practice to close all open mongoose connection using [`mongoose.disconnect`](http://mongoosejs.com/docs/api.html#index_Mongoose-disconnect).
+
 ## Config
 
 The config object should include the following values for the current environment. Below is an example for 
@@ -40,9 +42,9 @@ to `development`.
 ## Creating models
 
 Each model file will receive as arguments: `db`, `services`, and `options`. The `db` param will include the 
-properties `Mongoose`, and `models`, which is a reference to all other models in the project. 
+properties `mongoose`, and `models`, which is a reference to all other models in the project. 
 
-You can access the connection via `db.Mongoose.connection`
+You can access the connection via `db.mongoose.connection`
 
 Here is a sample model:
 
@@ -61,8 +63,8 @@ function TestModel(db, services, options) {
             },
             slug: {type: String},
             meta: {
-                type: {type: db.Mongoose.Schema.ObjectId, ref: 'content'},
-                node: {type: db.Mongoose.Schema.ObjectId, ref: 'nodes'},
+                type: {type: db.mongoose.Schema.ObjectId, ref: 'content'},
+                node: {type: db.mongoose.Schema.ObjectId, ref: 'nodes'},
                 lastmodified: {type: Date, default: Date.now},
                 created: {type: Date, default: Date.now},
                 typelabel: {type: String},
@@ -70,11 +72,11 @@ function TestModel(db, services, options) {
             }
         };
 
-    return db.Mongoose.connection.model(
-        modelName,
-        new db.Mongoose.Schema(schema, {collection: collectionName})
+    return db.mongoose.connection.model(
+        modelName, // db[modelName] will be available for use
+        new db.mongoose.Schema(schema, {collection: collectionName})
     );
 }
 ```
 
-See the [Mongoose docs](http://mongoosejs.com/docs) for more info.
+See the [mongoose docs](http://mongoosejs.com/docs) for more info.

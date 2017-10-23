@@ -11,22 +11,24 @@ function modelLoader(config) {
     // make db connection
     config = config[env];
     const endpoint = config.use_env_variable ? process.env[config.env_variable] : config.db.endpoint;
-    mongoose.connect(endpoint);
+
+    // Don't take up the default mongoose connection
+    mongoose.createConnection(endpoint);
 
     const db = {
-        Mongoose: mongoose,
-        models: {}
+        models: {},
+        mongoose
     };
 
     // model loader function
     return (modelPaths, services, options) => {
         modelPaths.forEach(thePath => {
             const Model = require(thePath)(db, services, options);
-            let modelName = Model.name;
+            let modelName = Model.modelName;
 
             if (!modelName) {
-                let pathFinalSegment = thePath.split('/').pop();
-                modelName = path.basename(pathFinalSegment, '.model.js');
+                modelName = path.basename(thePath, '.model.js');
+                console.log('Model.modelName not found, using', modelName);
             }
 
             db.models[modelName] = Model;
